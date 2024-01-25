@@ -8,7 +8,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [todo, setTodo] = useState([]);
   const [modal, setModal] = useState(false);
-  const [index, setIndex] = useState();
+  const [objectIndex, setobjectIndex] = useState();
 
   return (
     <>
@@ -35,11 +35,15 @@ function App() {
                       />
                     </div>
                     <div className="save">
-                      <button onClick={()=>{
-                        todo[index].description = description;
-                        todo[index].title = title;
-                        setModal(!modal)
-                      }} >save</button>
+                      <button
+                        onClick={() => {
+                          todo[objectIndex].description = description;
+                          todo[objectIndex].title = title;
+                          setModal(!modal);
+                        }}
+                      >
+                        save
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -56,7 +60,7 @@ function App() {
                         <div className="buttonContainer">
                           <button
                             onClick={() => {
-                              setIndex(index);
+                              setobjectIndex(index);
                               setModal(!modal);
                             }}
                           >
@@ -64,7 +68,9 @@ function App() {
                           </button>
                           <button
                             onClick={() => {
-                              setTodo(todo.slice(index - 1, index));
+                              const duplicate = [...todo];
+                              duplicate.splice(index, index + 1);
+                              setTodo(duplicate);
                             }}
                           >
                             delete
@@ -100,7 +106,7 @@ function App() {
                 />
               </div>
               <div className="save">
-                <button onClick={()=>setBack(!back)} >all todoes</button>
+                <button onClick={() => setBack(!back)}>all todoes</button>
                 <button
                   onClick={() => {
                     setBack(!back);
